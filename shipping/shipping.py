@@ -14,7 +14,7 @@ import  MySQLdb
 db = MySQLdb.connect(host="mysql",user="shipping",
               passwd="secret",db="cities")
 
-CART_URL = "http://cart/shipping/"
+CART_URL = "http://cart:8080/shipping/"
 
 @app.route('/codes', methods=['GET'])
 def codes():
@@ -52,7 +52,7 @@ def cities(code):
 @app.route('/calc/<uuid>', methods=['GET'])
 def calc(uuid):
 
-    query = "select latitude, longitude from cities where uuid = '{}'".format(uuid)
+    query = "select latitude, longitude from cities where uuid = {}".format(uuid)
 
     c = db.cursor()
     c.execute(query)
@@ -79,17 +79,19 @@ def calc(uuid):
 
 def addToCart(id, data):
 
+    print (CART_URL+str(id))
     response = requests.post(CART_URL+str(id), data=data)
     if response.status_code == 200:
         return response.json()
     else:
-        print ("Got error from POST cart")
+        print ("*** Error from cart service: ", response.status_code, response.text)
         return {}
 
 @app.route('/confirm/<id>', methods=['POST'])
 def confirm(id):
 
-    cart = addToCart(id, request.data)
+    print (request.data)
+    cart = addToCart(id, request.get_json())
     if not cart:
         return cart, 404
     else:
