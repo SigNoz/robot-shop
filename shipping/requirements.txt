@@ -1,5 +1,6 @@
+flask
 uwsgi
-Flask
 requests
-pika
+mysqlclient
+haversine
 # git+https://github.com/ankitnayan/signoz-python-sensor.git

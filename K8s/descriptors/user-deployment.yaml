@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: ankitnayan/rs-user:v0.1
+        image: ankitnayan/rs-user:v0.5
         env:
           # agent networking access
           - name: NODE_IP

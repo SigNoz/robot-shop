@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: robotshop/rs-shipping:latest
+        image: ankitnayan/rs-shipping:v0.2
         ports:
         - containerPort: 8080
         # it's Java it needs lots of memory

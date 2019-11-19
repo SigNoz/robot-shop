@@ -4,5 +4,5 @@ ADD . /usr/src/app
 WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
-EXPOSE 8000
-CMD exec gunicorn user.wsgi:application --bind 0.0.0.0:8000 --workers 3 --access-logfile='-' --access-logformat='%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(p)s" "%(D)s"'
+EXPOSE 8080
+CMD exec gunicorn user.wsgi:application --bind 0.0.0.0:8080 --workers 3 --access-logfile='-' --access-logformat='%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(p)s" "%(D)s"'

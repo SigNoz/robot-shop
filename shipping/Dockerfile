@@ -1,31 +1,16 @@
-#
-# Build
-#
-FROM openjdk:8-jdk AS build
-
-RUN apt-get update && apt-get -y install maven
-
-WORKDIR /opt/shipping
-
-COPY pom.xml /opt/shipping/
-RUN mvn install
-
-COPY src /opt/shipping/src/
-RUN mvn package
-
-#
-# Run
-#
-FROM openjdk:8-jdk
+FROM python:3.6
 
 EXPOSE 8080
+USER root
 
-WORKDIR /opt/shipping
+WORKDIR /app
 
-ENV CART_ENDPOINT=cart:8080
-ENV DB_HOST=mysql
+COPY requirements.txt /app/
 
-COPY --from=build /opt/shipping/target/shipping-1.0-jar-with-dependencies.jar shipping.jar
+RUN pip install -r requirements.txt
 
-CMD [ "java", "-Xmn256m", "-Xmx768m", "-jar", "shipping.jar" ]
+COPY *.py /app/
+COPY shipping.ini /app/
 
+#CMD ["python", "payment.py"]
+CMD ["uwsgi", "--ini", "shipping.ini"]

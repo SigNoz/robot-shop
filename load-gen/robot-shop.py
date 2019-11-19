@@ -48,10 +48,15 @@ class UserBehavior(TaskSet):
         self.client.get('/api/cart/update/{}/{}/2'.format(uniqueid, item['sku']))
 
         # country codes
-        code = choice(self.client.get('/api/shipping/codes').json())
-        city = choice(self.client.get('/api/shipping/cities/{}'.format(code['code'])).json())
+        codes = self.client.get('/api/shipping/codes')
+        code = choice(codes.json())
+
+        cities = self.client.get('/api/shipping/cities/{}'.format(code['code']))
+
+        city = choice(cities.json())
         print('code {} city {}'.format(code, city))
         shipping = self.client.get('/api/shipping/calc/{}'.format(city['uuid'])).json()
+
         shipping['location'] = '{} {}'.format(code['name'], city['name'])
         print('Shipping {}'.format(shipping))
         # POST
