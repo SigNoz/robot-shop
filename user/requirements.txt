@@ -1,0 +1,4 @@
+django
+gunicorn
+redis
+git+https://github.com/ankitnayan/signoz-python-sensor.git

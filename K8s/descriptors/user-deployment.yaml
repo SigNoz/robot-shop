@@ -16,13 +16,17 @@ spec:
     spec:
       containers:
       - name: user
-        image: robotshop/rs-user:latest
+        image: ankitnayan/rs-user:v0.1
         env:
           # agent networking access
-          - name: INSTANA_AGENT_HOST
+          - name: NODE_IP
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
+            
+          - name: AUTOWRAPT_BOOTSTRAP
+            value: signoz
+            
         ports:
         - containerPort: 8080
         resources:
