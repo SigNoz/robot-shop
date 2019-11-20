@@ -71,26 +71,30 @@ def pay(id):
     if req.status_code != 200:
         return 'payment error', req.status_code
 
+    print ("before generating orderID")
     # Generate order id
     orderid = str(uuid.uuid4())
     queueOrder({ 'orderid': orderid, 'user': id, 'cart': cart })
+    print("After generating orderId")
 
-    # add to order history
-    if not anonymous_user:
-        try:
-            req = requests.post('http://{user}:8080/order/{id}'.format(user=USER, id=id),
-                    data=json.dumps({'orderid': orderid, 'cart': cart}),
-                    headers={'Content-Type': 'application/json'})
-            app.logger.info('order history returned {}'.format(req.status_code))
-        except requests.exceptions.RequestException as err:
-            app.logger.error(err)
-            return str(err), 500
+    # # add to order history
+    # if not anonymous_user:
+    #     try:
+    #         req = requests.post('http://{user}:8080/order/{id}'.format(user=USER, id=id),
+    #                 data=json.dumps({'orderid': orderid, 'cart': cart}),
+    #                 headers={'Content-Type': 'application/json'})
+    #         app.logger.info('order history returned {}'.format(req.status_code))
+    #     except requests.exceptions.RequestException as err:
+    #         app.logger.error(err)
+    #         return str(err), 500
 
     # delete cart
+    
     try:
         req = requests.delete('http://{cart}:8080/cart/{id}'.format(cart=CART, id=id));
         app.logger.info('cart delete returned {}'.format(req.status_code))
     except requests.exceptions.RequestException as err:
+        print ("Exception from cart service")
         app.logger.error(err)
         return str(err), 500
     if req.status_code != 200:

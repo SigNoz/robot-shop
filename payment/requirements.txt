@@ -2,4 +2,6 @@ uwsgi
 Flask
 requests
 pika
+opentracing
+prometheus_client
 # git+https://github.com/ankitnayan/signoz-python-sensor.git
