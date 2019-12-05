@@ -3,4 +3,4 @@ uwsgi
 requests
 mysqlclient
 haversine
-# git+https://github.com/ankitnayan/signoz-python-sensor.git
+git+https://github.com/ankitnayan/signoz-python-sensor.git

@@ -18,7 +18,7 @@ CART_URL = "http://cart:8080/shipping/"
 
 @app.route('/codes', methods=['GET'])
 def codes():
-    query = "select code, name from codes order by name asc"
+    query = "select code, name from codes order by name asc;"
     c = db.cursor()
     c.execute(query)
     records = c.fetchall()

@@ -16,7 +16,29 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: ankitnayan/rs-shipping:v0.6
+        image: ankitnayan/rs-shipping:v0.21
+
+        env:
+          # agent networking access
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+                
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+
+          - name: AUTOWRAPT_BOOTSTRAP
+            value: signoz
+          - name: APP_NAME
+            value: shipping
         ports:
         - containerPort: 8080
         # it's Java it needs lots of memory
