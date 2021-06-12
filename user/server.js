@@ -6,6 +6,8 @@ instana({
         enabled: true
     }
 });
+// This line must come before importing any instrumented module.
+const tracer = require('dd-trace').init()
 
 const mongoClient = require('mongodb').MongoClient;
 const mongoObjectID = require('mongodb').ObjectID;

@@ -7,6 +7,9 @@ instana({
     }
 });
 
+// This line must come before importing any instrumented module.
+const tracer = require('dd-trace').init()
+
 const redis = require('redis');
 const request = require('request');
 const bodyParser = require('body-parser');

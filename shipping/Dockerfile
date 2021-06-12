@@ -27,5 +27,7 @@ ENV DB_HOST=mysql
 
 COPY --from=build /opt/shipping/target/shipping-1.0-jar-with-dependencies.jar shipping.jar
 
-CMD [ "java", "-Xmn256m", "-Xmx768m", "-jar", "shipping.jar" ]
+RUN wget -O dd-java-agent.jar 'https://dtdg.co/latest-java-tracer'
+
+CMD [ "java", "-javaagent:/dd-java-agent.jar", "-Xmn256m", "-Xmx768m", "-jar", "shipping.jar" ]
 
