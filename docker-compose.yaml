@@ -17,7 +17,10 @@ services:
   catalogue:
     build:
       context: catalogue
-    image: ${REPO}/rs-catalogue:${TAG}
+    image: signoz/rs-catalogue:latest
+    environment: 
+      - DD_AGENT_HOST=datadog-agent 
+      - DD_SERVICE="catalogue"
     depends_on:
       - mongodb
     networks:
@@ -25,7 +28,10 @@ services:
   user:
     build:
       context: user
-    image: ${REPO}/rs-user:${TAG}
+    image: signoz/rs-user:latest
+    environment: 
+      - DD_AGENT_HOST=datadog-agent 
+      - DD_SERVICE="user"
     depends_on:
       - mongodb
       - redis
@@ -34,7 +40,10 @@ services:
   cart:
     build:
       context: cart
-    image: ${REPO}/rs-cart:${TAG}
+    image: signoz/rs-cart:latest
+    environment: 
+      - DD_AGENT_HOST=datadog-agent 
+      - DD_SERVICE="cart"
     depends_on:
       - redis
     networks:
@@ -50,7 +59,10 @@ services:
   shipping:
     build:
       context: shipping
-    image: ${REPO}/rs-shipping:${TAG}
+    image: signoz/rs-shipping:latest
+    environment: 
+      - DD_AGENT_HOST=datadog-agent 
+      - DD_SERVICE="shipping"
     depends_on:
       - mysql
     networks:
@@ -66,7 +78,10 @@ services:
   payment:
     build:
       context: payment
-    image: ${REPO}/rs-payment:${TAG}
+    image: signoz/rs-payment:latest
+    environment: 
+      - DD_AGENT_HOST=datadog-agent 
+      - DD_SERVICE="payment"
     depends_on:
       - rabbitmq
     networks:
@@ -100,7 +115,18 @@ services:
       # INSTANA_EUM_KEY: <your eum key>
       # INSTANA_EUM_REPORTING_URL: https://eum-us-west-2.instana.io
       # INSTANA_EUM_REPORTING_URL: https://eum-eu-west-1.instana.io
-
+  
+  datadog-agent:
+    image: datadog/agent:latest
+    environment:
+      - DD_API_KEY=e001d64c07b747ab49b41a5d6a309983
+      - DD_APM_ENABLED=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+    networks:
+      - robot-shop
 networks:
   robot-shop:
 
