@@ -1,11 +1,11 @@
-const instana = require('@instana/collector');
-// init tracing
-// MUST be done before loading anything else!
-instana({
-    tracing: {
-        enabled: true
-    }
-});
+// const instana = require('@instana/collector');
+// // init tracing
+// // MUST be done before loading anything else!
+// instana({
+//     tracing: {
+//         enabled: true
+//     }
+// });
 
 // This line must come before importing any instrumented module.
 const tracer = require('dd-trace').init()
