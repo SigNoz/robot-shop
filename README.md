@@ -47,7 +47,9 @@ You can run it locally for testing.
 
 If you did not build from source, don't worry all the images are on Docker Hub. Just pull down those images first using:
 
+
 ```shell
+Change datadog agent API key in docker-compose.yaml
 $ docker-compose pull
 ```
 
