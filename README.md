@@ -1,11 +1,17 @@
-# Sample Microservice Application
 
 ### Load Generator
+sudo docker run -d --rm --name="loadgen" --network=host -e "HOST=http://localhost:8080/" -e "NUM_CLIENTS=5" -e "ERROR=1" -e "SILENT=1" robotshop/rs-load
+
+OR 
+
 sudo docker run -d --rm --name="loadgen" --network=host -e "HOST=http://web:8080/" -e "NUM_CLIENTS=5" -e "ERROR=1" -e "SILENT=1" robotshop/rs-load
+
 
 ### Loom Video to go till payment
 https://www.loom.com/share/375dfa69730c43d09ad5d0cab16b87ba
 
+
+# Sample Microservice Application
 
 
 Stan's Robot Shop is a sample microservice application you can use as a sandbox to test and learn containerised application orchestration and monitoring techniques. It is not intended to be a comprehensive reference example of how to write a microservices application, although you will better understand some of those concepts by playing with Stan's Robot Shop. To be clear, the error handling is patchy and there is not any security built into the application.
