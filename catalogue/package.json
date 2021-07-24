@@ -9,7 +9,6 @@
   "author": "SteveW",
   "license": "Apache-2.0",
   "dependencies": {
-    "@instana/collector": "^1.65.0",
     "body-parser": "^1.18.1",
     "dd-trace": "^0.35.0",
     "express": "^4.15.4",
